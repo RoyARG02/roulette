@@ -2,9 +2,13 @@
 /// in the level.
 ///
 /// The [name] stores the name or method of the elimination.
-class Method{
+class Method {
   /// The name or description of the method of the weapon/method.
   final String name;
+
   /// An weapon or a method to eliminate the target.
   Method({this.name});
+
+  @override
+  String toString() => "Method: ${this.name}";
 }

@@ -1,4 +1,4 @@
-import 'package:roulette/models/_internal/mission.dart';
+import '../_internal/mission.dart';
 
 final flatline = Mission(
   missionNo: 3,
@@ -16,7 +16,7 @@ final flatline = Mission(
     "Gravity",
     "Accidents",
   ]),
-  complications: [],
+  specialComplications: {},
   entryPoints: Mission.createEntryPointListFromStringList([
     "Second floor",
     "Front door",

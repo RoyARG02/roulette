@@ -1,4 +1,4 @@
-import 'package:roulette/models/_internal/mission.dart';
+import '../_internal/mission.dart';
 
 final aHouseOfCards = Mission(
   missionNo: 9,
@@ -14,9 +14,9 @@ final aHouseOfCards = Mission(
     "Gun",
     "Gravity",
   ]),
-  complications: Mission.createSpecialComplicationMapFromStringMap([
+  specialComplications: Mission.createSpecialComplicationMapFromStringMap(
     {"Never step into 7th or 8th floors": 0.40},
-  ]),
+  ),
   entryPoints: [],
   exitPoints: [],
 );

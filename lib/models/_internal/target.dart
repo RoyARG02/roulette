@@ -7,4 +7,7 @@ class Target {
 
   /// A target in a mission.
   Target({this.name});
+
+  @override
+  String toString() => "Target: ${this.name}";
 }

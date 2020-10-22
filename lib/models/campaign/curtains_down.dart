@@ -1,5 +1,5 @@
-import 'package:roulette/models/_internal/mission.dart';
-import 'package:roulette/models/_internal/randomizer.dart';
+import '../_internal/mission.dart';
+import '../_internal/randomizer.dart';
 
 final curtainsDown = Mission(
   missionNo: 2,
@@ -19,10 +19,12 @@ final curtainsDown = Mission(
     "Screwdriver",
     "Real WWI pistol",
   ]),
-  complications: Mission.createSpecialComplicationMapFromStringMap([
-    {"Kill Delahunt first.": 0.45},
-    {"Retrieve the Prop WWI pistol.": 0.45},
-  ]),
+  specialComplications: Mission.createSpecialComplicationMapFromStringMap(
+    {
+      "Kill Delahunt first.": 0.45,
+      "Retrieve the Prop WWI pistol.": 0.45,
+    },
+  ),
   entryPoints: Mission.createEntryPointListFromStringList([
     "Left and down the stairs",
     "Through the opera hall",

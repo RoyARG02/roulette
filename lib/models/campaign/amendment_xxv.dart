@@ -1,4 +1,4 @@
-import 'package:roulette/models/_internal/mission.dart';
+import '../_internal/mission.dart';
 
 final amendmentXvv = Mission(
   missionNo: 11,
@@ -16,14 +16,22 @@ final amendmentXvv = Mission(
     "Nailer",
     "Custom 1911",
   ]),
-  complications: Mission.createSpecialComplicationMapFromStringMap([
-    {"The fire alarm must not be triggered": 0.30},
-    {"Daniel's dog must survive": 0.35},
+  specialComplications: Mission.createSpecialComplicationMapFromStringMap(
+    {
+      "The fire alarm must not be triggered": 0.30,
+      "Daniel's dog must survive": 0.35,
+    },
+  ),
+  entryPoints: Mission.createEntryPointListFromStringList([
+    "Roof",
+    "Hallway",
   ]),
-  entryPoints:[],
-  exitPoints: [],
+  exitPoints: Mission.createExitPointListFromStringList([
+    "Roof",
+    "Hallway",
+  ]),
   intermediatePoints: Mission.createIntermediatePointsFromMap({
-    "Main Building": ["Roof", "Hallway"],
-    "West wing": ["Roof", "Courtyard"],
+    "West wing": ["Roof", "Hallway"],
+    "Main Building": ["Roof", "Courtyard"],
   }),
 );

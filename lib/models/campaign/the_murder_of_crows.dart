@@ -1,4 +1,4 @@
-import 'package:roulette/models/_internal/mission.dart';
+import '../_internal/mission.dart';
 
 final theMurderOfCrows = Mission(
   missionNo: 5,
@@ -16,9 +16,9 @@ final theMurderOfCrows = Mission(
     "Kitchen knife",
     "Kazo TRG",
   ]),
-  complications: Mission.createSpecialComplicationMapFromStringMap([
+  specialComplications: Mission.createSpecialComplicationMapFromStringMap(
     {"Retrieve the SG552": 0.30},
-  ]),
+  ),
   entryPoints: [],
   exitPoints: [],
 );

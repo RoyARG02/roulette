@@ -1,7 +1,7 @@
-import 'package:roulette/models/_internal/complication.dart';
-import 'package:roulette/models/_internal/location.dart';
-import 'package:roulette/models/_internal/method.dart';
-import 'package:roulette/models/_internal/target.dart';
+import 'complication.dart';
+import 'location.dart';
+import 'method.dart';
+import 'target.dart';
 
 /// The class containing information about the mission.
 ///
@@ -37,7 +37,7 @@ class Mission {
 
   /// The restrictions applied on this specific mission alongwith their
   /// odds as a map.
-  final List<Map<SpecialComplication, double>> complications;
+  final Map<SpecialComplication, double> specialComplications;
 
   /// A mission in the game.
   ///
@@ -53,7 +53,7 @@ class Mission {
   ///
   /// [exitPoints] are the ways the player can exit the map.
   ///
-  /// [complications] are the restrictions applied to the mission.
+  /// [specialComplications] are the restrictions applied to the mission.
   ///
   /// [intermediatePoints] are the locations the player might go to in
   /// the mission.
@@ -64,7 +64,7 @@ class Mission {
     this.methods,
     this.entryPoints,
     this.exitPoints,
-    this.complications,
+    this.specialComplications,
     this.intermediatePoints,
   });
 
@@ -82,13 +82,9 @@ class Mission {
 
   /// Creates a [Map<SpecialComplication,double>] from [Map<String, double>], containing the
   /// complication specific to the mission and its odds.
-  static List<Map<SpecialComplication, double>> createSpecialComplicationMapFromStringMap(
-          List<Map<String, double>> complicationMapList) =>
-      complicationMapList.map(
-        (Map<String, double> complicationMap) => complicationMap.map(
-          (String key, double value) => MapEntry(SpecialComplication(description: key), value)
-        )
-      ).toList();
+  static Map<SpecialComplication, double> createSpecialComplicationMapFromStringMap(
+          Map<String, double> complicationMap) =>
+      complicationMap.map((String complication, double odds) => MapEntry(SpecialComplication(description: complication), odds));
 
   /// Creates a list of [EntryPoint] from a list of [String], containing the ways
   /// the palyer can enter the map.

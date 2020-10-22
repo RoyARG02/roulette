@@ -1,4 +1,4 @@
-import 'package:roulette/models/_internal/mission.dart';
+import '../_internal/mission.dart';
 
 final aVintageYear = Mission(
   missionNo: 1,
@@ -19,7 +19,7 @@ final aVintageYear = Mission(
     "Fire Extinguisher",
     "Snub Nosed(Revolver)",
    ]),
-  complications: [],
+  specialComplications: {},
   entryPoints: Mission.createEntryPointListFromStringList([
     "Left from the beginning",
     "Right from the beginning",

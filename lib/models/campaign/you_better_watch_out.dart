@@ -1,5 +1,5 @@
-import 'package:roulette/models/_internal/mission.dart';
-import 'package:roulette/models/_internal/randomizer.dart';
+import '../_internal/mission.dart';
+import '../_internal/randomizer.dart';
 
 final youBetterWatchOut = Mission(
   missionNo: 6,
@@ -17,10 +17,12 @@ final youBetterWatchOut = Mission(
     "Kitchen knife",
     if (Randomizer.randomDouble <= 0.29) "Old age",
   ]),
-  complications: Mission.createSpecialComplicationMapFromStringMap([
-    {"Kill \"?\"": 0.44},
-    {"Lorne's dog must survive": 0.44},
-  ]),
+  specialComplications: Mission.createSpecialComplicationMapFromStringMap(
+    {
+      "Kill \"?\"": 0.44,
+      "Lorne's dog must survive": 0.44,
+    },
+  ),
   entryPoints: Mission.createEntryPointListFromStringList([
     "Guest elevator",
     "Staff elevator",

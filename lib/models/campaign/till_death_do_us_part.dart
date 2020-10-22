@@ -1,4 +1,4 @@
-import 'package:roulette/models/_internal/mission.dart';
+import '../_internal/mission.dart';
 
 final tillDeathDoUsPart = Mission(
   missionNo: 8,
@@ -17,9 +17,9 @@ final tillDeathDoUsPart = Mission(
     "Chandelier",
     "Elephant Rifle",
   ]),
-  complications: Mission.createSpecialComplicationMapFromStringMap([
+  specialComplications: Mission.createSpecialComplicationMapFromStringMap(
     {"Never go to the second floor": 0.55},
-  ]),
+  ),
   entryPoints: Mission.createEntryPointListFromStringList([
     "Left door",
     "Front door",

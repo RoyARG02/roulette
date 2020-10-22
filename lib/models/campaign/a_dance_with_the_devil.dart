@@ -1,4 +1,4 @@
-import 'package:roulette/models/_internal/mission.dart';
+import '../_internal/mission.dart';
 
 final aDanceWithTheDevil = Mission(
   missionNo: 10,
@@ -19,9 +19,9 @@ final aDanceWithTheDevil = Mission(
     "Cane sword",
     "Dragunov SVD",
   ]),
-  complications: Mission.createSpecialComplicationMapFromStringMap([
+  specialComplications: Mission.createSpecialComplicationMapFromStringMap(
     {"Steal the video tape": 0.35},
-  ]),
+  ),
   entryPoints: Mission.createEntryPointListFromStringList([
     "Heaven Party",
     "Hell Party",

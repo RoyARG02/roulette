@@ -1,4 +1,4 @@
-import 'package:roulette/models/_internal/mission.dart';
+import '../_internal/mission.dart';
 
 final deathOnTheMississippi = Mission(
   missionNo: 7,
@@ -22,9 +22,9 @@ final deathOnTheMississippi = Mission(
     "Accidents",
     "Desert Eagle",
   ]),
-  complications: Mission.createSpecialComplicationMapFromStringMap([
+  specialComplications: Mission.createSpecialComplicationMapFromStringMap(
     {"Retrieve the FN-2000": 0.35},
-  ]),
+  ),
   entryPoints: Mission.createEntryPointListFromStringList([
     "Engine room",
     "Cabins",
