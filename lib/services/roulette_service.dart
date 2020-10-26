@@ -47,8 +47,8 @@ class RouletteService with Randomizer {
     // Obtain a copy of generic complications
     List<Complication> _genericComplications = GenericComplication.genericComplications;
 
-    mission.specialComplications.forEach((element, odds) {
-      if (Randomizer.randomDouble <= odds) _missionComplications.add(element);
+    mission.specialComplications.forEach((element) {
+      if (Randomizer.randomDouble <= element.chance) _missionComplications.add(element);
     });
 
     Complication _randomGenericComplication;

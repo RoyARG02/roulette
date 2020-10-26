@@ -16,7 +16,7 @@ final flatline = Mission(
     "Gravity",
     "Accidents",
   ]),
-  specialComplications: {},
+  specialComplications: [],
   entryPoints: Mission.createEntryPointListFromStringList([
     "Second floor",
     "Front door",

@@ -1,7 +1,11 @@
+import 'package:json_annotation/json_annotation.dart';
+
 import 'complication.dart';
 import 'location.dart';
 import 'method.dart';
 import 'target.dart';
+
+part 'mission.g.dart';
 
 /// The class containing information about the mission.
 ///
@@ -10,35 +14,8 @@ import 'target.dart';
 /// methods/weapons found in the mission, [entryPoints] the ways the
 /// player can enter into the mission level, and the [exitPoints] the
 /// ways the player can exit the mission.
+@JsonSerializable()
 class Mission {
-  /// The position of the mission in the level sequence.
-  final int missionNo;
-
-  /// The name of the mission.
-  final String name;
-
-  /// The list of targets in the mission.
-  final List<Target> targets;
-
-  /// The list of methods by which the target can be eliminated in
-  /// the mission.
-  final List<Method> methods;
-
-  /// The ways the mission level can be entered.
-  final List<EntryPoint> entryPoints;
-
-  /// The ways the mission level can be entered.
-  final List<ExitPoint> exitPoints;
-
-  /// Any intermediate locations the player might have to pass through.
-  ///
-  /// Multiple locations could be listed.
-  final Map<String, List<IntermediatePoint>> intermediatePoints;
-
-  /// The restrictions applied on this specific mission alongwith their
-  /// odds as a map.
-  final Map<SpecialComplication, double> specialComplications;
-
   /// A mission in the game.
   ///
   /// [missionNo] is the order of the mission in the campaign sequence.
@@ -68,6 +45,41 @@ class Mission {
     this.intermediatePoints,
   });
 
+  factory Mission.fromJson(Map<String, dynamic> json) => _$MissionFromJson(json);
+
+  Map<String, dynamic> toJson() => _$MissionToJson(this);
+
+  /// The position of the mission in the level sequence.
+  @JsonKey(required: true)
+  final int missionNo;
+
+  /// The name of the mission.
+  @JsonKey(required: true)
+  final String name;
+
+  /// The list of targets in the mission.
+  @JsonKey(disallowNullValue: true)
+  final List<Target> targets;
+
+  /// The list of methods by which the target can be eliminated in
+  /// the mission.
+  final List<Method> methods;
+
+  /// The ways the mission level can be entered.
+  final List<EntryPoint> entryPoints;
+
+  /// The ways the mission level can be entered.
+  final List<ExitPoint> exitPoints;
+
+  /// Any intermediate locations the player might have to pass through.
+  ///
+  /// Multiple locations could be listed.
+  final List<IntermediatePoint> intermediatePoints;
+
+  /// The restrictions applied on this specific mission alongwith their
+  /// odds.
+  final List<SpecialComplication> specialComplications;
+
   // Helper functions to create arguments
 
   /// Creates a list of [Target] from a list of [String], containing the name
@@ -80,35 +92,33 @@ class Mission {
   static List<Method> createMethodListFromStringList(List<String> methodList) =>
       methodList.map((String name) => Method(name: name)).toList();
 
-  /// Creates a [Map<SpecialComplication,double>] from [Map<String, double>], containing the
+  /// Creates a [List<SpecialComplication>] from [Map<String, double>], containing the
   /// complication specific to the mission and its odds.
-  static Map<SpecialComplication, double> createSpecialComplicationMapFromStringMap(
+  static List<SpecialComplication> createSpecialComplicationMapFromStringMap(
           Map<String, double> complicationMap) =>
-      complicationMap.map((String complication, double odds) => MapEntry(SpecialComplication(description: complication), odds));
+      complicationMap.entries.map(
+        (MapEntry<String, double> entry) => SpecialComplication(description: entry.key,chance: entry.value)
+      ).toList();
 
   /// Creates a list of [EntryPoint] from a list of [String], containing the ways
-  /// the palyer can enter the map.
+  /// the player can enter the map.
   static List<EntryPoint> createEntryPointListFromStringList(List<String> entryPointList) =>
       entryPointList.map(
         (String description) => EntryPoint(description: description)
       ).toList();
 
   /// Creates a list of [ExitPoint] from a list of [String], containing the ways
-  /// the palyer can enter the map.
+  /// the player can enter the map.
   static List<ExitPoint> createExitPointListFromStringList(List<String> exitPointList) =>
       exitPointList.map(
         (String description) => ExitPoint(description: description)
       ).toList();
 
-  /// Creates a map of [Map<String, List<IntermediatePoint>>] from a [Map<String, List<String>>],
+  /// Creates a map of [List<IntermediatePoint>] from a [Map<String, List<String>>],
   /// containing the intermediate locations the player might pass through during the mission.
-  static Map<String, List<IntermediatePoint>> createIntermediatePointsFromMap(Map<String, List<String>> map){
-    List<IntermediatePoint> createIntermediatePointListFromStringList(List<String> list) =>
-      list.map((String description) => IntermediatePoint(description: description));
-
-    return map.map<String, List<IntermediatePoint>>(
-      (String name, List<String> locations) =>
-        MapEntry<String, List<IntermediatePoint>>(name, createIntermediatePointListFromStringList(locations))
-    );
-  }
+  static List<IntermediatePoint> createIntermediatePointsFromMap(Map<String, List<String>> map) =>
+    map.entries.map(
+      (MapEntry<String, List<String>> entry) =>
+        IntermediatePoint(description: entry.key, path: entry.value)
+    ).toList();
 }

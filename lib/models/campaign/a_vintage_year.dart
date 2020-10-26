@@ -19,7 +19,7 @@ final aVintageYear = Mission(
     "Fire Extinguisher",
     "Snub Nosed(Revolver)",
    ]),
-  specialComplications: {},
+  specialComplications: [],
   entryPoints: Mission.createEntryPointListFromStringList([
     "Left from the beginning",
     "Right from the beginning",
