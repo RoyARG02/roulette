@@ -16,7 +16,7 @@ class RouletteService with Randomizer {
     tillDeathDoUsPart,
     aHouseOfCards,
     aDanceWithTheDevil,
-    amendmentXvv,
+    amendmentXxv,
   ];
 
   /// Provides a random mission from the campaign.

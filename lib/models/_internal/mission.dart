@@ -79,46 +79,4 @@ class Mission {
   /// The restrictions applied on this specific mission alongwith their
   /// odds.
   final List<SpecialComplication> specialComplications;
-
-  // Helper functions to create arguments
-
-  /// Creates a list of [Target] from a list of [String], containing the name
-  /// of the targets.
-  static List<Target> createTargetListFromStringList(List<String> targetList) =>
-      targetList.map((String name) => Target(name: name)).toList();
-
-  /// Creates a list of [Method] from a list of [String], containing the method
-  /// name.
-  static List<Method> createMethodListFromStringList(List<String> methodList) =>
-      methodList.map((String name) => Method(name: name)).toList();
-
-  /// Creates a [List<SpecialComplication>] from [Map<String, double>], containing the
-  /// complication specific to the mission and its odds.
-  static List<SpecialComplication> createSpecialComplicationMapFromStringMap(
-          Map<String, double> complicationMap) =>
-      complicationMap.entries.map(
-        (MapEntry<String, double> entry) => SpecialComplication(description: entry.key,chance: entry.value)
-      ).toList();
-
-  /// Creates a list of [EntryPoint] from a list of [String], containing the ways
-  /// the player can enter the map.
-  static List<EntryPoint> createEntryPointListFromStringList(List<String> entryPointList) =>
-      entryPointList.map(
-        (String description) => EntryPoint(description: description)
-      ).toList();
-
-  /// Creates a list of [ExitPoint] from a list of [String], containing the ways
-  /// the player can enter the map.
-  static List<ExitPoint> createExitPointListFromStringList(List<String> exitPointList) =>
-      exitPointList.map(
-        (String description) => ExitPoint(description: description)
-      ).toList();
-
-  /// Creates a map of [List<IntermediatePoint>] from a [Map<String, List<String>>],
-  /// containing the intermediate locations the player might pass through during the mission.
-  static List<IntermediatePoint> createIntermediatePointsFromMap(Map<String, List<String>> map) =>
-    map.entries.map(
-      (MapEntry<String, List<String>> entry) =>
-        IntermediatePoint(description: entry.key, path: entry.value)
-    ).toList();
 }

@@ -1,33 +1,32 @@
 import '../_internal/mission.dart';
 
-final deathOnTheMississippi = Mission(
-  missionNo: 7,
-  name: "Death on the Mississippi",
-  targets: Mission.createTargetListFromStringList([
-    "Skip Muldoon",
-    "Gator gang member",
-    "Gator gang member",
-    "Gator gang member",
-    "Gator gang member",
-    "Gator gang member",
-    "Gator gang member",
-  ]),
-  methods: Mission.createMethodListFromStringList([
-    "Fiber wire",
-    "RU-AP mine",
-    "Gun",
-    "Kitchen knife",
-    "Fire extinguisher",
-    "Shovel",
-    "Accidents",
-    "Desert Eagle",
-  ]),
-  specialComplications: Mission.createSpecialComplicationMapFromStringMap(
-    {"Retrieve the FN-2000": 0.35},
-  ),
-  entryPoints: Mission.createEntryPointListFromStringList([
-    "Engine room",
-    "Cabins",
-  ]),
-  exitPoints: [],
-);
+final deathOnTheMississippi = Mission.fromJson({
+  'missionNo': 7,
+  'name': 'Death on the Mississippi',
+  'targets': [
+    {'name': 'Skip Muldoon'},
+    {'name': 'Gator gang member'},
+    {'name': 'Gator gang member'},
+    {'name': 'Gator gang member'},
+    {'name': 'Gator gang member'},
+    {'name': 'Gator gang member'},
+    {'name': 'Gator gang member'},
+  ],
+  'methods': [
+    {'name': 'Fiber Wire'},
+    {'name': 'RU-AP Mine'},
+    {'name': 'Gun'},
+    {'name': 'Kitchen knife'},
+    {'name': 'Fire extinguisher'},
+    {'name': 'Shovel'},
+    {'name': 'Accident kill'},
+    {'name': 'Desert Eagle'},
+  ],
+  'specialComplications': [
+    {'description': 'Retrieve the FN-2000', 'chance': 0.35},
+  ],
+  'entryPoints': [
+    {'description': 'Engine room'},
+    {'description': 'Cabins'},
+  ],
+});
