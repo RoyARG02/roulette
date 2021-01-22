@@ -1,6 +1,3 @@
-import 'package:flutter/foundation.dart';
-
-import '../_internal/complication.dart';
 /// Roulette
 ///     Copyright (C) 2020, 2021  Anurag Roy
 ///
@@ -17,6 +14,9 @@ import '../_internal/complication.dart';
 ///     You should have received a copy of the GNU General Public License
 ///     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+import 'package:flutter/foundation.dart';
+
+import '../_internal/complication.dart';
 import '../_internal/mission.dart';
 import '../_internal/randomizer.dart';
 
