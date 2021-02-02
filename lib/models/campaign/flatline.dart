@@ -14,9 +14,9 @@
 ///     You should have received a copy of the GNU General Public License
 ///     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-import '../_internal/mission.dart';
+import '../_internal/campaign.dart';
 
-final flatline = Mission.fromJson({
+final flatline = Campaign.fromJson({
   'missionNo': 3,
   'name': 'Flatline',
   'targets': [

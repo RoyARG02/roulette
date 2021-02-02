@@ -14,9 +14,9 @@
 ///     You should have received a copy of the GNU General Public License
 ///     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-import '../_internal/mission.dart';
+import '../_internal/campaign.dart';
 
-final aDanceWithTheDevil = Mission.fromJson({
+final aDanceWithTheDevil = Campaign.fromJson({
   'missionNo': 10,
   'name': 'A Dance with The Devil',
   'targets': [

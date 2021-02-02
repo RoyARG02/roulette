@@ -14,38 +14,58 @@
 ///     You should have received a copy of the GNU General Public License
 ///     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-import 'package:flutter/foundation.dart';
+import 'package:json_annotation/json_annotation.dart';
 
-import '../_internal/complication.dart';
-import '../_internal/mission.dart';
-import '../_internal/randomizer.dart';
+part 'current_mission.g.dart';
 
-class CurrentMission extends ChangeNotifier with Randomizer {
-  Mission _currentMission;
+/// The class containing information about the current mission.
+///
+/// This will serve as the app model of the roulette.
+///
+/// While very similar to the [Mission] class, this class has all its members in
+/// [String]. This has been made for easy import/export of json files as roulette
+/// results.
+///
+/// [killConditions] stores a random [Method] as value for each [Target] as the
+/// key. This is similar to [intermediatePoints], which stores a random path as
+/// value for each [IntermediatePoint].
+///
+/// See also:
+///
+///  *  [Mission], which has similar members and stores information about
+/// different campaigns.
+@JsonSerializable()
+class CurrentMission {
+  CurrentMission({
+    this.missionNo,
+    this.name,
+    this.entryPoint,
+    this.killConditions,
+    this.exitPoint,
+    this.intermediatePoints,
+    this.complications,
+  });
 
-  List<Complication> _missionComplications;
+  @JsonKey(required: true)
+  /// The position of the mission in the level sequence.
+  int missionNo;
+  @JsonKey(required: true)
+  /// The name of the mission.
+  String name;
+  /// The way the mission level must be entered.
+  String entryPoint;
+  @JsonKey(required: true)
+  /// The ways the targets must be eliminated.
+  List<Map<String, String>> killConditions;
+  /// The way the mission level must be exited.
+  String exitPoint;
+  /// Any intermediate locations the player would have to pass through,
+  /// alongwith the path the player must take to access it.
+  List<Map<String, String>> intermediatePoints;
+  /// The restrictions applied on this specific mission.
+  List<String> complications;
 
-  set currentMission(Mission newMission) {
-    _currentMission = newMission;
-    notifyListeners();
-  }
+  factory CurrentMission.fromJson(Map<String, dynamic> json) => _$CurrentMissionFromJson(json);
 
-  set missionComplications(List<Complication> complications){
-    _missionComplications = complications;
-  }
-
-  /// The current mission.
-  Mission get currentMission => this._currentMission;
-
-  /// A random entry point of a mission.
-  String get entryPoint => pickRandomFromList(_currentMission.entryPoints).description;
-
-  /// A random exit point of a mission.
-  String get exitPoint => pickRandomFromList(_currentMission.exitPoints).description;
-
-  /// A random method to eliminate the target.
-  String get method => pickRandomFromList(_currentMission.methods).name;
-
-  /// The cpmplications applied on this mission.
-  List<Complication> get complications => this._missionComplications;
+  Map<String, dynamic> toJson() => _$CurrentMissionToJson(this);
 }

@@ -14,6 +14,12 @@
 ///     You should have received a copy of the GNU General Public License
 ///     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import '../models/app_model/current_mission_notifier.dart';
+import '../services/roulette_service.dart';
+
 abstract class BaseCommand{
-  //TODO: Define top level models to query/look up to
+  final rouletteServiceProvider = Provider<RouletteService>((ref) => RouletteService());
+  final currentMissionProvider = StateNotifierProvider<CurrentMissionNotifier>((ref) => CurrentMissionNotifier(null));
 }

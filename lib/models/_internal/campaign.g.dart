@@ -1,16 +1,16 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'mission.dart';
+part of 'campaign.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-Mission _$MissionFromJson(Map<String, dynamic> json) {
+Campaign _$CampaignFromJson(Map<String, dynamic> json) {
   $checkKeys(json,
       requiredKeys: const ['missionNo', 'name'],
       disallowNullValues: const ['targets']);
-  return Mission(
+  return Campaign(
     missionNo: json['missionNo'] as int,
     name: json['name'] as String,
     targets: (json['targets'] as List)
@@ -42,7 +42,7 @@ Mission _$MissionFromJson(Map<String, dynamic> json) {
   );
 }
 
-Map<String, dynamic> _$MissionToJson(Mission instance) {
+Map<String, dynamic> _$CampaignToJson(Campaign instance) {
   final val = <String, dynamic>{
     'missionNo': instance.missionNo,
     'name': instance.name,

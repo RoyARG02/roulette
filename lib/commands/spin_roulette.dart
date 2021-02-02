@@ -14,10 +14,14 @@
 ///     You should have received a copy of the GNU General Public License
 ///     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-import 'package:roulette/commands/base_command.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import 'base_command.dart';
+import '../models/app_model/current_mission.dart';
 
 class SpinRouletteCommand extends BaseCommand{
-  void run(){
-    //TODO: Command should query service and update model
+  void run(Reader read, String mission, int complications){
+    CurrentMission newMission = read(rouletteServiceProvider).spinRoulette(mission, complications);
+    read(currentMissionProvider).updateCurrentMission(newMission);
   }
 }

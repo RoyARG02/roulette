@@ -21,7 +21,7 @@ import 'location.dart';
 import 'method.dart';
 import 'target.dart';
 
-part 'mission.g.dart';
+part 'campaign.g.dart';
 
 /// The class containing information about the mission.
 ///
@@ -31,7 +31,7 @@ part 'mission.g.dart';
 /// player can enter into the mission level, and the [exitPoints] the
 /// ways the player can exit the mission.
 @JsonSerializable()
-class Mission {
+class Campaign {
   /// A mission in the game.
   ///
   /// [missionNo] is the order of the mission in the campaign sequence.
@@ -50,7 +50,7 @@ class Mission {
   ///
   /// [intermediatePoints] are the locations the player might go to in
   /// the mission.
-  Mission({
+  Campaign({
     this.missionNo,
     this.name,
     this.targets,
@@ -61,9 +61,9 @@ class Mission {
     this.intermediatePoints,
   });
 
-  factory Mission.fromJson(Map<String, dynamic> json) => _$MissionFromJson(json);
+  factory Campaign.fromJson(Map<String, dynamic> json) => _$CampaignFromJson(json);
 
-  Map<String, dynamic> toJson() => _$MissionToJson(this);
+  Map<String, dynamic> toJson() => _$CampaignToJson(this);
 
   /// The position of the mission in the level sequence.
   @JsonKey(required: true)
@@ -84,7 +84,7 @@ class Mission {
   /// The ways the mission level can be entered.
   final List<EntryPoint> entryPoints;
 
-  /// The ways the mission level can be entered.
+  /// The ways the mission level can be exited.
   final List<ExitPoint> exitPoints;
 
   /// Any intermediate locations the player might have to pass through.

@@ -22,9 +22,11 @@ class Roulette extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(),
       body: RouletteBody(),
-      floatingActionButton: FloatingActionButton(
-        tooltip: 'Save as favorite',
-        child: Icon(Icons.star_border),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButton: FloatingActionButton.extended(
+        tooltip: 'Roll the roulette',
+        icon: Icon(Icons.refresh),
+        label: Text('Make it go!'),
         onPressed: () {},
       ),
     );

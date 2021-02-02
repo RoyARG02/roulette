@@ -14,23 +14,13 @@
 ///     You should have received a copy of the GNU General Public License
 ///     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-import '../_internal/campaign.dart';
+import 'package:flutter_riverpod/all.dart';
+import 'package:roulette/models/app_model/current_mission.dart';
 
-final aHouseOfCards = Campaign.fromJson({
-  'missionNo': 9,
-  'name': 'A House of Cards',
-  'targets': [
-    {'name': 'Hendrik Schmutz'},
-    {'name': 'Mohammad Bin Faisal Al-Khalifa'},
-    {'name': 'Tariq Abdul Lateef'},
-  ],
-  'methods': [
-    {'name': 'Fiber Wire'},
-    {'name': 'RU-AP Mine'},
-    {'name': 'Gun'},
-    {'name': 'Gravity'},
-  ],
-  'specialComplications': [
-    {'description': 'Never step onto the 7th or 8th floor', 'chance': 0.40},
-  ]
-});
+class CurrentMissionNotifier extends StateNotifier<CurrentMission> {
+  CurrentMissionNotifier(CurrentMission currentMission) : super(currentMission);
+
+  void updateCurrentMission(CurrentMission newMission) {
+    state = newMission;
+  }
+}

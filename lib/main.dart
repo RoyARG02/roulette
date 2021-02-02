@@ -15,6 +15,7 @@
 ///     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:roulette/themes/dark_theme.dart';
 import 'package:roulette/themes/light_theme.dart';
@@ -28,11 +29,13 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Roulette',
-      theme: lightTheme,
-      darkTheme: darkTheme,
-      home: Roulette(),
+    return ProviderScope(
+      child: MaterialApp(
+        title: 'Roulette',
+        theme: lightTheme,
+        darkTheme: darkTheme,
+        home: Roulette(),
+      ),
     );
   }
 }
