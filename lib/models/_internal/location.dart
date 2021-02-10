@@ -1,18 +1,18 @@
-/// Roulette
-///     Copyright (C) 2020, 2021  Anurag Roy
-///
-///     This program is free software: you can redistribute it and/or modify
-///     it under the terms of the GNU General Public License as published by
-///     the Free Software Foundation, either version 3 of the License, or
-///     (at your option) any later version.
-///
-///     This program is distributed in the hope that it will be useful,
-///     but WITHOUT ANY WARRANTY; without even the implied warranty of
-///     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-///     GNU General Public License for more details.
-///
-///     You should have received a copy of the GNU General Public License
-///     along with this program.  If not, see <https://www.gnu.org/licenses/>.
+// Roulette
+//     Copyright (C) 2020, 2021  Anurag Roy
+//
+//     This program is free software: you can redistribute it and/or modify
+//     it under the terms of the GNU General Public License as published by
+//     the Free Software Foundation, either version 3 of the License, or
+//     (at your option) any later version.
+//
+//     This program is distributed in the hope that it will be useful,
+//     but WITHOUT ANY WARRANTY; without even the implied warranty of
+//     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//     GNU General Public License for more details.
+//
+//     You should have received a copy of the GNU General Public License
+//     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import 'package:json_annotation/json_annotation.dart';
 
@@ -36,7 +36,7 @@ class EntryPoint implements Location {
   ///
   /// Can refer to either a path to enter or a specific name of a
   /// location to which the player may pass through to gain entry.
-  EntryPoint({this.description});
+  EntryPoint({required this.description});
 
   @override
   final String description;
@@ -60,7 +60,7 @@ class ExitPoint implements Location {
   ///
   /// Can refer to either a path to exit or a specific name of a
   /// location to which the player may pass through to exit the level.
-  ExitPoint({this.description});
+  ExitPoint({required this.description});
 
   @override
   final String description;
@@ -83,8 +83,8 @@ class IntermediatePoint implements Location {
   /// Can refer to either a path to enter or a specific name of a
   /// location to which the player may pass through to gain entry.
   IntermediatePoint({
-    this.description,
-    this.path,
+    required this.description,
+    required this.path,
   });
 
   @override

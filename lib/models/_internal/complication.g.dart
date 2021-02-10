@@ -9,7 +9,7 @@ part of 'complication.dart';
 SpecialComplication _$SpecialComplicationFromJson(Map<String, dynamic> json) {
   return SpecialComplication(
     description: json['description'] as String,
-    chance: (json['chance'] as num)?.toDouble(),
+    chance: (json['chance'] as num).toDouble(),
   );
 }
 

@@ -1,18 +1,18 @@
-/// Roulette
-///     Copyright (C) 2020, 2021  Anurag Roy
-///
-///     This program is free software: you can redistribute it and/or modify
-///     it under the terms of the GNU General Public License as published by
-///     the Free Software Foundation, either version 3 of the License, or
-///     (at your option) any later version.
-///
-///     This program is distributed in the hope that it will be useful,
-///     but WITHOUT ANY WARRANTY; without even the implied warranty of
-///     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-///     GNU General Public License for more details.
-///
-///     You should have received a copy of the GNU General Public License
-///     along with this program.  If not, see <https://www.gnu.org/licenses/>.
+// Roulette
+//     Copyright (C) 2020, 2021  Anurag Roy
+//
+//     This program is free software: you can redistribute it and/or modify
+//     it under the terms of the GNU General Public License as published by
+//     the Free Software Foundation, either version 3 of the License, or
+//     (at your option) any later version.
+//
+//     This program is distributed in the hope that it will be useful,
+//     but WITHOUT ANY WARRANTY; without even the implied warranty of
+//     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//     GNU General Public License for more details.
+//
+//     You should have received a copy of the GNU General Public License
+//     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import '../models/_internal/complication.dart';
 import '../models/_internal/campaign.dart';
@@ -49,7 +49,9 @@ class RouletteService with Randomizer {
 
   /// Provides a mission as a result of the roulette
   CurrentMission spinRoulette(String mission, int complications) {
-    Campaign _selectedMission;
+    // Selected mission can be null if mission argument is not in campaign
+    Campaign? _selectedMission;
+
     // Look for appropriate mission in the campaign list
     for (Campaign i in _campaign) {
       if (i.name == mission) {
@@ -58,36 +60,36 @@ class RouletteService with Randomizer {
     }
 
     // If we didn't find any, get a random mission
-    _selectedMission = this._randomMission;
+    _selectedMission ??= this._randomMission;
+
+    // TODO: debug
+    print(_selectedMission);
 
     return this._getConditions(_selectedMission, complications);
   }
 
   /// A list of complications to apply on this mission.
   ///
-  /// [complications] is the number of complications to apply; if null, evaluates to any
-  /// random number between `1` and `4`.
+  /// [complications] is the number of complications to apply; if it is `-1`,
+  /// evaluates to any random number between `0` and `4`.
   List<String> createComplications(Campaign mission, int complications) {
-    complications ??= Randomizer.randomInt(4);
+    if(complications == -1) complications = Randomizer.randomInt(4);
 
-    List<String> _missionComplications;
+    // This will have all the complications that could be applied for this
+    // specific roulette.
+    List<String> _tempComplications = [];
 
-    // Obtain a copy of generic complications
-    List<Complication> _genericComplications = GenericComplication.genericComplications;
-
-    mission.specialComplications.forEach((element) {
-      if (Randomizer.randomDouble <= element.chance) _missionComplications.add(element.description);
+    // Add special complications of the mission based on the complication
+    // chance.
+    mission.specialComplications?.forEach((element) {
+      if (Randomizer.randomDouble <= element.chance) _tempComplications.add(element.description);
     });
 
-    Complication _randomGenericComplication;
+    // Spread the genericComplications in the complication list and shuffle them.
+    _tempComplications = [..._tempComplications, ...GenericComplication.genericComplications.map((comp) => comp.description)]..shuffle();
 
-    while (_missionComplications.length <= complications) {
-      _randomGenericComplication = pickRandomFromList(_genericComplications);
-      _missionComplications.add(_randomGenericComplication.description);
-      _genericComplications.remove(_randomGenericComplication);
-    }
-
-    return _missionComplications;
+    // return as many complications as required.
+    return _tempComplications.take(complications).toList();
   }
 
   /// Creates kill conditions for each of the targets for a mission.
@@ -102,8 +104,8 @@ class RouletteService with Randomizer {
   ///
   /// Each map of the returned list will contain the description of the
   /// [IntermediatePoint] as the key and a random path as the value.
-  List<Map<String, String>> getIntermediatePoints(Campaign mission) {
-    return mission.intermediatePoints.map((location) => {location.description : pickRandomFromList(location.path)}).toList();
+  List<Map<String, String>>? getIntermediatePoints(Campaign mission) {
+    return mission.intermediatePoints?.map((location) => {location.description : pickRandomFromList(location.path)}).toList();
   }
 
   /// Creates the result of the roulette as the app model.
@@ -111,9 +113,9 @@ class RouletteService with Randomizer {
     return CurrentMission.fromJson({
       'missionNo': mission.missionNo,
       'name': mission.name,
-      'entryPoint': pickRandomFromList(mission.entryPoints).description,
+      if(mission.entryPoints != null) 'entryPoint': pickRandomFromList(mission.entryPoints!).description,
       'killConditions': createKillConditions(mission),
-      'exitPoint': pickRandomFromList(mission.exitPoints),
+      if(mission.exitPoints != null) 'exitPoint': pickRandomFromList(mission.exitPoints!).description,
       'intermediatePoints': getIntermediatePoints(mission),
       'complications': createComplications(mission, complications),
     });

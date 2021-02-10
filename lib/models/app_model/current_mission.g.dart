@@ -7,34 +7,42 @@ part of 'current_mission.dart';
 // **************************************************************************
 
 CurrentMission _$CurrentMissionFromJson(Map<String, dynamic> json) {
-  $checkKeys(json, requiredKeys: const ['missionNo', 'name', 'killConditions']);
+  $checkKeys(json,
+      requiredKeys: const ['missionNo', 'name', 'killConditions'],
+      disallowNullValues: const ['killConditions']);
   return CurrentMission(
     missionNo: json['missionNo'] as int,
     name: json['name'] as String,
-    entryPoint: json['entryPoint'] as String,
-    killConditions: (json['killConditions'] as List)
-        ?.map((e) => (e as Map<String, dynamic>)?.map(
-              (k, e) => MapEntry(k, e as String),
-            ))
-        ?.toList(),
-    exitPoint: json['exitPoint'] as String,
-    intermediatePoints: (json['intermediatePoints'] as List)
-        ?.map((e) => (e as Map<String, dynamic>)?.map(
-              (k, e) => MapEntry(k, e as String),
-            ))
-        ?.toList(),
-    complications:
-        (json['complications'] as List)?.map((e) => e as String)?.toList(),
+    entryPoint: json['entryPoint'] as String?,
+    killConditions: (json['killConditions'] as List<dynamic>)
+        .map((e) => Map<String, String>.from(e as Map))
+        .toList(),
+    exitPoint: json['exitPoint'] as String?,
+    intermediatePoints: (json['intermediatePoints'] as List<dynamic>?)
+        ?.map((e) => Map<String, String>.from(e as Map))
+        .toList(),
+    complications: (json['complications'] as List<dynamic>?)
+        ?.map((e) => e as String)
+        .toList(),
   );
 }
 
-Map<String, dynamic> _$CurrentMissionToJson(CurrentMission instance) =>
-    <String, dynamic>{
-      'missionNo': instance.missionNo,
-      'name': instance.name,
-      'entryPoint': instance.entryPoint,
-      'killConditions': instance.killConditions,
-      'exitPoint': instance.exitPoint,
-      'intermediatePoints': instance.intermediatePoints,
-      'complications': instance.complications,
-    };
+Map<String, dynamic> _$CurrentMissionToJson(CurrentMission instance) {
+  final val = <String, dynamic>{
+    'missionNo': instance.missionNo,
+    'name': instance.name,
+  };
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('entryPoint', instance.entryPoint);
+  val['killConditions'] = instance.killConditions;
+  writeNotNull('exitPoint', instance.exitPoint);
+  writeNotNull('intermediatePoints', instance.intermediatePoints);
+  writeNotNull('complications', instance.complications);
+  return val;
+}

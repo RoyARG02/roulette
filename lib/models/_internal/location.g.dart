@@ -30,7 +30,7 @@ Map<String, dynamic> _$ExitPointToJson(ExitPoint instance) => <String, dynamic>{
 IntermediatePoint _$IntermediatePointFromJson(Map<String, dynamic> json) {
   return IntermediatePoint(
     description: json['description'] as String,
-    path: (json['path'] as List)?.map((e) => e as String)?.toList(),
+    path: (json['path'] as List<dynamic>).map((e) => e as String).toList(),
   );
 }
 

@@ -14,18 +14,17 @@
 //     You should have received a copy of the GNU General Public License
 //     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-import 'dart:math' show Random;
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-/// Randomizes the available options in a mission.
-abstract class Randomizer {
-  /// A random [double] value.
-  static double get randomDouble => Random().nextDouble();
+import '../models/app_model/current_mission_notifier.dart';
+import '../models/app_model/roulette_parameters_provider.dart';
+import '../services/roulette_service.dart';
 
-  /// A random [int] value in the range of `0` to [max] inclusive.
-  static int randomInt(int max) => Random().nextInt(max + 1);
+/// Provides the [RouletteService] to be used by the app.
+final rouletteServiceProvider = Provider<RouletteService>((ref) => RouletteService());
 
-  /// Gets a random element from a given list.
-  ///
-  /// [list] must not be null.
-  T pickRandomFromList<T>(List<T> list) => list[Random().nextInt(list.length)];
-}
+/// Provides the [RouletteParameter] to be used by the app.
+final rouletteParameterProvider = StateNotifierProvider<RouletteParameterProvider>((ref) => RouletteParameterProvider());
+
+/// Provides the [CurrentMission] as obtained from the [RouletteService].
+final currentMissionProvider = StateNotifierProvider<CurrentMissionNotifier>((ref) => CurrentMissionNotifier(null));

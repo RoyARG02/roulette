@@ -1,18 +1,18 @@
-/// Roulette
-///     Copyright (C) 2020, 2021  Anurag Roy
-///
-///     This program is free software: you can redistribute it and/or modify
-///     it under the terms of the GNU General Public License as published by
-///     the Free Software Foundation, either version 3 of the License, or
-///     (at your option) any later version.
-///
-///     This program is distributed in the hope that it will be useful,
-///     but WITHOUT ANY WARRANTY; without even the implied warranty of
-///     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-///     GNU General Public License for more details.
-///
-///     You should have received a copy of the GNU General Public License
-///     along with this program.  If not, see <https://www.gnu.org/licenses/>.
+// Roulette
+//     Copyright (C) 2020, 2021  Anurag Roy
+//
+//     This program is free software: you can redistribute it and/or modify
+//     it under the terms of the GNU General Public License as published by
+//     the Free Software Foundation, either version 3 of the License, or
+//     (at your option) any later version.
+//
+//     This program is distributed in the hope that it will be useful,
+//     but WITHOUT ANY WARRANTY; without even the implied warranty of
+//     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//     GNU General Public License for more details.
+//
+//     You should have received a copy of the GNU General Public License
+//     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import 'package:json_annotation/json_annotation.dart';
 
@@ -46,8 +46,8 @@ abstract class Complication {
 @JsonSerializable()
 class SpecialComplication implements Complication {
   SpecialComplication({
-    this.description,
-    this.chance,
+    required this.description,
+    required this.chance,
   });
 
   /// The chance of this special complication being applied to a mission.
@@ -68,7 +68,7 @@ class SpecialComplication implements Complication {
 /// The generic complications that can be applied to any mission.
 @JsonSerializable()
 class GenericComplication implements Complication {
-  GenericComplication({this.description});
+  GenericComplication({required this.description});
 
   /// The list of generic complications.
   @JsonKey(ignore: true)
