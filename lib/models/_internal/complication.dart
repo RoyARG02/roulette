@@ -75,6 +75,7 @@ class GenericComplication implements Complication {
   static List<GenericComplication> get genericComplications => [
         GenericComplication(description: "Do not get shot at by the guards."),
         GenericComplication(description: "Do not use gunshots or explosives as distractions."),
+        // TODO: Improve wording(i.e., change "knockouts" to "pacifications" here)
         GenericComplication(description: "Do not use any unnecessary knockouts or accidents."),
         GenericComplication(description: "Do not use any disguises."),
       ];

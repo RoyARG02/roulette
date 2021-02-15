@@ -17,7 +17,6 @@
 import '../models/_internal/complication.dart';
 import '../models/_internal/campaign.dart';
 import '../models/_internal/randomizer.dart';
-
 import '../models/app_model/current_mission.dart';
 import '../models/campaign/index.dart';
 
@@ -62,9 +61,6 @@ class RouletteService with Randomizer {
     // If we didn't find any, get a random mission
     _selectedMission ??= this._randomMission;
 
-    // TODO: debug
-    print(_selectedMission);
-
     return this._getConditions(_selectedMission, complications);
   }
 
@@ -73,7 +69,7 @@ class RouletteService with Randomizer {
   /// [complications] is the number of complications to apply; if it is `-1`,
   /// evaluates to any random number between `0` and `4`.
   List<String> createComplications(Campaign mission, int complications) {
-    if(complications == -1) complications = Randomizer.randomInt(4);
+    if (complications == -1) complications = Randomizer.randomInt(4);
 
     // This will have all the complications that could be applied for this
     // specific roulette.
@@ -82,11 +78,15 @@ class RouletteService with Randomizer {
     // Add special complications of the mission based on the complication
     // chance.
     mission.specialComplications?.forEach((element) {
-      if (Randomizer.randomDouble <= element.chance) _tempComplications.add(element.description);
+      if (Randomizer.randomDouble <= element.chance)
+        _tempComplications.add(element.description);
     });
 
     // Spread the genericComplications in the complication list and shuffle them.
-    _tempComplications = [..._tempComplications, ...GenericComplication.genericComplications.map((comp) => comp.description)]..shuffle();
+    _tempComplications = [
+      ..._tempComplications,
+      ...GenericComplication.genericComplications.map((comp) => comp.description)
+    ]..shuffle();
 
     // return as many complications as required.
     return _tempComplications.take(complications).toList();
@@ -94,18 +94,29 @@ class RouletteService with Randomizer {
 
   /// Creates kill conditions for each of the targets for a mission.
   ///
-  /// Each map of the returned list will contain the name of the [Target] as the
-  /// key and a random [Method] as the value.
+  /// Each map of the returned list will contain the name of the [Target] and a
+  /// random [Method] as values with their respective keys.
   List<Map<String, String>> createKillConditions(Campaign mission) {
-    return mission.targets.map((target) => {target.name : pickRandomFromList(mission.methods).name}).toList();
+    return mission.targets
+        .map((target) => {
+              'target': target.name,
+              'method': pickRandomFromList(mission.methods).name,
+            })
+        .toList();
   }
 
   /// Creates restrictions for accessing intermediate points of a mission.
   ///
   /// Each map of the returned list will contain the description of the
-  /// [IntermediatePoint] as the key and a random path as the value.
+  /// [IntermediatePoint] as and a random path as values with their respective
+  /// keys.
   List<Map<String, String>>? getIntermediatePoints(Campaign mission) {
-    return mission.intermediatePoints?.map((location) => {location.description : pickRandomFromList(location.path)}).toList();
+    return mission.intermediatePoints
+        ?.map((location) => {
+              'description': location.description,
+              'path': pickRandomFromList(location.path),
+            })
+        .toList();
   }
 
   /// Creates the result of the roulette as the app model.
@@ -113,9 +124,9 @@ class RouletteService with Randomizer {
     return CurrentMission.fromJson({
       'missionNo': mission.missionNo,
       'name': mission.name,
-      if(mission.entryPoints != null) 'entryPoint': pickRandomFromList(mission.entryPoints!).description,
+      if (mission.entryPoints != null) 'entryPoint': pickRandomFromList(mission.entryPoints!).description,
       'killConditions': createKillConditions(mission),
-      if(mission.exitPoints != null) 'exitPoint': pickRandomFromList(mission.exitPoints!).description,
+      if (mission.exitPoints != null) 'exitPoint': pickRandomFromList(mission.exitPoints!).description,
       'intermediatePoints': getIntermediatePoints(mission),
       'complications': createComplications(mission, complications),
     });

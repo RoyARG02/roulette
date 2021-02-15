@@ -21,8 +21,8 @@ CurrentMission _$CurrentMissionFromJson(Map<String, dynamic> json) {
     intermediatePoints: (json['intermediatePoints'] as List<dynamic>?)
         ?.map((e) => Map<String, String>.from(e as Map))
         .toList(),
-    complications: (json['complications'] as List<dynamic>?)
-        ?.map((e) => e as String)
+    complications: (json['complications'] as List<dynamic>)
+        .map((e) => e as String)
         .toList(),
   );
 }
@@ -43,6 +43,6 @@ Map<String, dynamic> _$CurrentMissionToJson(CurrentMission instance) {
   val['killConditions'] = instance.killConditions;
   writeNotNull('exitPoint', instance.exitPoint);
   writeNotNull('intermediatePoints', instance.intermediatePoints);
-  writeNotNull('complications', instance.complications);
+  val['complications'] = instance.complications;
   return val;
 }

@@ -43,7 +43,7 @@ class CurrentMission {
     required this.killConditions,
     this.exitPoint,
     this.intermediatePoints,
-    this.complications,
+    required this.complications,
   });
 
   @JsonKey(required: true)
@@ -63,7 +63,7 @@ class CurrentMission {
   /// alongwith the path the player must take to access it.
   List<Map<String, String>>? intermediatePoints;
   /// The restrictions applied on this specific mission.
-  List<String>? complications;
+  List<String> complications;
 
   factory CurrentMission.fromJson(Map<String, dynamic> json) => _$CurrentMissionFromJson(json);
 

@@ -15,12 +15,13 @@
 //     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import 'package:flutter/material.dart';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'package:roulette/themes/dark_theme.dart';
-import 'package:roulette/themes/light_theme.dart';
+import './themes/dark_theme.dart';
+import './themes/light_theme.dart';
 
-import 'package:roulette/views/roulette.dart';
+import './views/roulette.dart';
 
 void main() {
   runApp(MyApp());

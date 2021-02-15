@@ -15,52 +15,94 @@
 //     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:roulette/commands/spin_roulette.dart';
 
-import '../providers/providers.dart';
+import '../commands/spin_roulette.dart';
+import '../views/sections/choose_complication.dart';
+import '../views/sections/roulette_results.dart';
+import '../views/sections/select_mission.dart';
 
 class Roulette extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        title: const Text('Roulette'),
+        actions: [
+          RouletteHelpButton(),
+        ],
+      ),
       body: RouletteBody(),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       floatingActionButton: FloatingActionButton.extended(
         tooltip: 'Roll the roulette',
-        icon: Icon(Icons.refresh),
-        label: Text('Make it go!'),
+        icon: const Icon(Icons.refresh),
+        label: const Text('Make it go!'),
         onPressed: () => SpinRouletteCommand().run(context),
+      ),
+      bottomNavigationBar: RouletteBottomBar(),
+    );
+  }
+}
+
+class RouletteHelpButton extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return TextButton.icon(
+      // TODO: Change the colors to make it "visible".
+      icon: const Icon(Icons.help_center_outlined),
+      label: const Text('HELP'),
+      onPressed: () {},
+    );
+  }
+}
+
+class RouletteBody extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return SingleChildScrollView(
+      padding: const EdgeInsets.all(8.0),
+      child: Column(
+        children: [
+          SelectMission(),
+          ChooseComplication(),
+          RouletteResults(),
+        ],
       ),
     );
   }
 }
 
-class RouletteBody extends ConsumerWidget {
+// TODO: The spacing of these buttons don't feel right. The FAB too is overlapping roulette results with long text.
+class RouletteBottomBar extends StatelessWidget {
   @override
-  Widget build(BuildContext context, ScopedReader watch) {
-    return Column(
-      children: [
-        DropdownButton(
-          value: watch(rouletteParameterProvider.state).mission,
-          items: <String>['Random mission', 'A Vintage Year']
-              .map((String mission) => DropdownMenuItem<String>(
-                    child: Text(mission),
-                    value: mission,
-                  ))
-              .toList(),
-          onChanged: (String? selected) =>
-              context.read(rouletteParameterProvider).setMissionParameter(selected!),
-        ),
-        Slider(
-          min: -1,
-          max: 4,
-          divisions: 5,
-          value: watch(rouletteParameterProvider.state).complications.toDouble(),
-          onChanged: (double selected) => context.read(rouletteParameterProvider).setComplicationParameter(selected.toInt()),
-        ),
-      ],
+  Widget build(BuildContext context) {
+    return BottomAppBar(
+      child: ButtonBar(
+        alignment: MainAxisAlignment.end,
+        layoutBehavior: ButtonBarLayoutBehavior.padded,
+        children: [
+          TextButton.icon(
+            icon: const Icon(Icons.arrow_back),
+            label: const Text('Previous roulette'),
+            onPressed: () {},
+          ),
+          TextButton.icon(
+            icon: const Icon(Icons.file_upload),
+            label: const Text('Import roulette'),
+            onPressed: () {},
+          ),
+          TextButton.icon(
+            icon: const Icon(Icons.file_download),
+            label: const Text('Export roulette'),
+            onPressed: () {},
+          ),
+          TextButton.icon(
+            icon: const Icon(Icons.arrow_forward),
+            label: const Text('Next roulette'),
+            onPressed: () {},
+          ),
+        ],
+      ),
     );
   }
 }

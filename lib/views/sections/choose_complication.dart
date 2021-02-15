@@ -14,19 +14,23 @@
 //     You should have received a copy of the GNU General Public License
 //     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../components/complication_slider.dart';
+import '../sections/section.dart';
 
-import '../models/app_model/roulette_parameters.dart';
-import '../models/app_model/current_mission.dart';
-import '../providers/providers.dart';
-import 'base_command.dart';
-
-class SpinRouletteCommand extends BaseCommand{
-  void run(BuildContext context){
-    RouletteParameters parameters = context.read(rouletteParameterProvider.state);
-    CurrentMission newMission = context.read(rouletteServiceProvider).spinRoulette(parameters.mission, parameters.complications);
-    context.read(currentMissionProvider).updateCurrentMission(newMission);
+/// The [Section] displaying the option to choose number of [Complication]s to 
+/// be applied to this roulette.
+class ChooseComplication extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Section(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      members: [
+        SectionMember(child: const Text('NO. OF COMPLICATIONS')),
+        SectionMember(child: ComplicationSlider()),
+      ],
+    );
   }
 }

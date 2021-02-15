@@ -14,19 +14,28 @@
 //     You should have received a copy of the GNU General Public License
 //     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../models/app_model/roulette_parameters.dart';
-import '../models/app_model/current_mission.dart';
-import '../providers/providers.dart';
-import 'base_command.dart';
+import '../../providers/providers.dart';
 
-class SpinRouletteCommand extends BaseCommand{
-  void run(BuildContext context){
-    RouletteParameters parameters = context.read(rouletteParameterProvider.state);
-    CurrentMission newMission = context.read(rouletteServiceProvider).spinRoulette(parameters.mission, parameters.complications);
-    context.read(currentMissionProvider).updateCurrentMission(newMission);
+/// The [Slider] displayed on the [RouletteBody].
+/// 
+/// Displays the [complications] held by [rouletteParameterProvider]'s state, and 
+/// updates it accordingly on change.
+class ComplicationSlider extends ConsumerWidget {
+  @override
+  Widget build(BuildContext context, ScopedReader watch) {
+    // TODO: A custom thumb with the value written on it.
+    return Slider(
+      min: -1,
+      max: 4,
+      divisions: 5,
+      value: watch(rouletteParameterProvider.state).complications.toDouble(),
+      onChanged: (double selected) => context
+          .read(rouletteParameterProvider)
+          .setComplicationParameter(selected.toInt()),
+    );
   }
 }

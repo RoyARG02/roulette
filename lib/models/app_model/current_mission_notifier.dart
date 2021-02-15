@@ -14,8 +14,9 @@
 //     You should have received a copy of the GNU General Public License
 //     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-import 'package:flutter_riverpod/all.dart';
-import 'package:roulette/models/app_model/current_mission.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import 'current_mission.dart';
 
 /// Notifies the current mission selected in the roulette.
 ///
